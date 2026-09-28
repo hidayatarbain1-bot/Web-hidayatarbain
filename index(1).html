@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LAN Connect Lab | Hidayat Arbain</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap');
+:root{--bg:#070b14;--card:rgba(18,25,42,.82);--text:#f4f7ff;--muted:#9ba8bd;--cyan:#00e5ff;--purple:#7c5cff;--green:#25e59a;--border:rgba(255,255,255,.09)}
+*{box-sizing:border-box;margin:0;padding:0;scroll-behavior:smooth}
+body{font-family:Inter,sans-serif;color:var(--text);background:radial-gradient(circle at 10% 10%,#00e5ff18,transparent 25%),radial-gradient(circle at 90% 20%,#7c5cff20,transparent 28%),var(--bg);line-height:1.7}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.035;background-image:linear-gradient(#fff 1px,transparent 1px),linear-gradient(90deg,#fff 1px,transparent 1px);background-size:45px 45px;z-index:-1}
+.container{width:min(1150px,92%);margin:auto}.navbar{position:sticky;top:0;z-index:10;background:#070b14d9;backdrop-filter:blur(18px);border-bottom:1px solid var(--border)}
+.nav{height:70px;display:flex;align-items:center;justify-content:space-between}.logo{font-family:"Space Grotesk";font-weight:700;font-size:20px;display:flex;gap:10px;align-items:center}.logo i{font-style:normal;background:linear-gradient(135deg,var(--cyan),var(--purple));padding:8px 11px;border-radius:10px}.nav a{color:#aab5c9;text-decoration:none;margin-left:20px;font-size:14px}.nav a:hover{color:var(--cyan)}
+.hero{min-height:650px;display:grid;grid-template-columns:1.1fr .9fr;gap:45px;align-items:center;padding:70px 0}.badge{display:inline-block;color:var(--cyan);background:#00e5ff0d;border:1px solid #00e5ff40;padding:7px 13px;border-radius:30px;font-size:12px;margin-bottom:20px}h1,h2,h3{font-family:"Space Grotesk"}h1{font-size:clamp(42px,6vw,75px);line-height:1.02;letter-spacing:-3px}.gradient{background:linear-gradient(90deg,var(--cyan),#9a8cff,var(--purple));-webkit-background-clip:text;color:transparent}.hero p{color:var(--muted);font-size:17px;margin:22px 0;max-width:650px}.buttons{display:flex;gap:12px;flex-wrap:wrap}.btn{display:inline-block;border:0;border-radius:12px;padding:12px 18px;font-weight:700;cursor:pointer;text-decoration:none}.primary{background:linear-gradient(135deg,var(--cyan),#7cf7ff);color:#041018}.secondary{background:#ffffff09;color:#fff;border:1px solid var(--border)}
+.visual{height:360px;border:1px solid var(--border);border-radius:28px;background:linear-gradient(145deg,#14203aee,#090e1ae8);position:relative;overflow:hidden;box-shadow:0 25px 70px #0007}.laptop{position:absolute;width:115px;height:75px;border:3px solid #7890ad;border-radius:10px;background:#101a2a;display:grid;place-items:center;font-size:30px;top:105px}.laptop:after{content:"";position:absolute;width:145px;height:8px;background:#7890ad;bottom:-13px;border-radius:50%}.l1{left:35px}.l2{right:35px}.line{position:absolute;left:145px;right:145px;top:140px;height:3px;background:linear-gradient(90deg,var(--cyan),var(--purple));box-shadow:0 0 15px var(--cyan)}.plug{position:absolute;top:123px;left:50%;transform:translateX(-50%);padding:8px 10px;border:2px solid var(--cyan);border-radius:7px;color:var(--cyan);background:#07121d;font-size:11px}.visual p{position:absolute;bottom:40px;width:100%;text-align:center;color:#aebbd0}
+section{padding:80px 0}.head{text-align:center;margin-bottom:38px}.kicker{color:var(--cyan);letter-spacing:3px;text-transform:uppercase;font-size:12px;font-weight:800}.head p{color:var(--muted);max-width:650px;margin:8px auto}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}.card{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:23px;box-shadow:0 15px 40px #0003}.card:hover{transform:translateY(-4px);transition:.25s;border-color:#00e5ff45}.icon{font-size:30px;margin-bottom:10px}.card p,.card li{color:var(--muted);font-size:14px}.card ul{padding-left:20px}
+.profile{display:grid;grid-template-columns:1fr 1fr;gap:18px}.info div{padding:13px 0;border-bottom:1px solid var(--border)}.info b{display:inline-block;width:145px;color:#fff}.info span{color:var(--muted)}
+.steps{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}.step{display:flex;gap:18px;background:var(--card);border:1px solid var(--border);border-radius:20px;padding:22px}.num{min-width:42px;height:42px;border-radius:13px;display:grid;place-items:center;background:linear-gradient(135deg,var(--cyan),var(--purple));font-weight:800;color:#06101b}.step p{color:var(--muted);font-size:14px}
+.colors{display:flex;flex-wrap:wrap;gap:9px;margin-top:15px}.wire{padding:8px 12px;border-radius:8px;font-size:12px;font-weight:700;border:1px solid #ffffff25}.whiteorange{background:#fff;color:#222}.orange{background:#f58220}.whitegreen{background:#fff;color:#222}.green{background:#23a455}.whiteblue{background:#fff;color:#222}.blue{background:#2675c7}.whitebrown{background:#fff;color:#222}.brown{background:#75462a}
+.connection{display:grid;grid-template-columns:1fr 80px 1fr;align-items:center;gap:15px}.device{text-align:center;padding:30px 15px;border:1px solid var(--border);background:var(--card);border-radius:20px}.device .big{font-size:42px}.arrow{text-align:center;color:var(--cyan);font-size:35px}
+.uploads{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.upload{min-height:240px;border:1px dashed #ffffff30;background:#ffffff04;border-radius:20px;padding:25px;text-align:center}.upload input{width:100%;margin:20px 0}.preview{margin-top:20px;border-radius:14px;overflow:hidden;border:1px solid var(--border);background:#050811;min-height:120px;display:grid;place-items:center;color:#77839a}.preview iframe{width:100%;height:260px;border:0}.preview video{width:100%;max-height:260px}
+.notice{padding:18px 20px;border-left:3px solid var(--cyan);background:#00e5ff09;color:#b8c4d8;border-radius:10px;margin-top:18px}
+footer{padding:40px 0;border-top:1px solid var(--border);text-align:center;color:#758197;font-size:13px}
+@media(max-width:850px){.hero,.profile{grid-template-columns:1fr}.grid{grid-template-columns:repeat(2,1fr)}.uploads{grid-template-columns:1fr}.nav a{display:none}.connection{grid-template-columns:1fr}.arrow{transform:rotate(90deg)}}
+@media(max-width:550px){.grid,.steps{grid-template-columns:1fr}h1{letter-spacing:-2px}.hero{padding:50px 0}.visual{height:320px}.l1{left:20px}.l2{right:20px}.line{left:110px;right:110px}}
+</style>
+</head>
+<body>
+
+<header class="navbar">
+<div class="container nav">
+<div class="logo"><i>⌁</i> LAN CONNECT LAB</div>
+<nav>
+<a href="#materi">Materi</a><a href="#praktik">Praktik</a><a href="#sharing">Sharing</a><a href="#file">File</a>
+</nav>
+</div>
+</header>
+
+<main>
+<section class="hero container">
+<div>
+<div class="badge">● MATA KULIAH — JARINGAN KOMPUTER</div>
+<h1>Merangkai LAN.<br><span class="gradient">Menghubungkan.</span><br>Berbagi.</h1>
+<p>Media pembelajaran interaktif tentang pembuatan kabel LAN RJ45, pengujian dengan LAN tester, koneksi dua laptop, hingga sharing file melalui jaringan LAN.</p>
+<div class="buttons"><a class="btn primary" href="#praktik">Mulai Praktik →</a><a class="btn secondary" href="#file">Kelola File</a></div>
+</div>
+<div class="visual">
+<div class="laptop l1">💻</div><div class="laptop l2">💻</div><div class="line"></div><div class="plug">RJ45</div>
+<p>DIRECT LAN CONNECTION • LAPTOP ↔ LAPTOP</p>
+</div>
+</section>
+
+<section id="profil">
+<div class="container">
+<div class="head"><div class="kicker">01 — Identitas</div><h2>Profil Praktikum</h2></div>
+<div class="profile">
+<div class="card info">
+<div><b>Nama</b><span>Hidayat Arbain</span></div>
+<div><b>Kelas</b><span>1-TIA</span></div>
+<div><b>NIM</b><span>062640723198</span></div>
+<div><b>Jurusan</b><span>Teknik Komputer</span></div>
+</div>
+<div class="card info">
+<div><b>Prodi</b><span>D4 Teknologi Informatika Multimedia Digital</span></div>
+<div><b>Dosen Pengampu</b><span>Dr. Ali Firdaus, S.Kom., M.Kom.</span></div>
+<div><b>Mata Kuliah</b><span>Jaringan Komputer</span></div>
+<div><b>Topik</b><span>Kabel LAN & File Sharing</span></div>
+</div>
+</div>
+</div>
+</section>
+
+<section id="materi">
+<div class="container">
+<div class="head"><div class="kicker">02 — Persiapan</div><h2>Alat yang Dibutuhkan</h2><p>Siapkan seluruh alat sebelum mulai merangkai kabel.</p></div>
+<div class="grid">
+<div class="card"><div class="icon">🔌</div><h3>RJ45</h3><p>Konektor 8-pin yang dipasang pada kedua ujung kabel UTP.</p></div>
+<div class="card"><div class="icon">🧪</div><h3>LAN Tester</h3><p>Digunakan untuk mengecek apakah susunan kabel sudah benar.</p></div>
+<div class="card"><div class="icon">🛠️</div><h3>Tang Crimping</h3><p>Alat untuk memasang dan mengunci kabel UTP ke konektor RJ45.</p></div>
+<div class="card"><div class="icon">🧵</div><h3>Kabel UTP</h3><p>Media transmisi yang terdiri dari pasangan kabel tembaga berpilin.</p></div>
+</div>
+</div>
+</section>
+
+<section id="praktik">
+<div class="container">
+<div class="head"><div class="kicker">03 — Praktik</div><h2>Cara Membuat Kabel LAN</h2><p>Gunakan susunan T568B pada kedua ujung kabel untuk membuat kabel straight.</p></div>
+<div class="card" style="margin-bottom:20px">
+<h3>Urutan Warna T568B</h3>
+<div class="colors">
+<span class="wire whiteorange">1 · Putih-Orange</span><span class="wire orange">2 · Orange</span>
+<span class="wire whitegreen">3 · Putih-Hijau</span><span class="wire blue">4 · Biru</span>
+<span class="wire whiteblue">5 · Putih-Biru</span><span class="wire green">6 · Hijau</span>
+<span class="wire whitebrown">7 · Putih-Coklat</span><span class="wire brown">8 · Coklat</span>
+</div>
+</div>
+<div class="steps">
+<div class="step"><div class="num">01</div><div><h3>Potong kabel</h3><p>Potong kabel UTP sesuai panjang yang dibutuhkan menggunakan pemotong pada tang crimping.</p></div></div>
+<div class="step"><div class="num">02</div><div><h3>Kupas jaket</h3><p>Kupas bagian luar kabel secukupnya tanpa merusak inti kabel.</p></div></div>
+<div class="step"><div class="num">03</div><div><h3>Susun warna</h3><p>Luruskan 8 inti kabel dan susun sesuai urutan T568B.</p></div></div>
+<div class="step"><div class="num">04</div><div><h3>Masukkan RJ45</h3><p>Masukkan semua inti kabel sampai menyentuh bagian depan konektor.</p></div></div>
+<div class="step"><div class="num">05</div><div><h3>Crimping</h3><p>Masukkan RJ45 ke tang crimping lalu tekan kuat sampai pin terkunci.</p></div></div>
+<div class="step"><div class="num">06</div><div><h3>Test kabel</h3><p>Pasang kedua ujung kabel pada LAN tester dan pastikan indikator 1–8 menyala berurutan.</p></div></div>
+</div>
+<div class="notice">💡 Tips: Jika indikator LAN tester tidak berurutan atau ada yang tidak menyala, periksa kembali susunan warna dan hasil crimping.</div>
+</div>
+</section>
+
+<section id="sharing">
+<div class="container">
+<div class="head"><div class="kicker">04 — Connection</div><h2>Hubungkan 2 Laptop</h2><p>Gunakan kabel LAN untuk membuat koneksi langsung antar dua laptop.</p></div>
+<div class="connection">
+<div class="device"><div class="big">💻</div><h3>Laptop A</h3><p>IP: 192.168.1.1</p></div>
+<div class="arrow">↔</div>
+<div class="device"><div class="big">💻</div><h3>Laptop B</h3><p>IP: 192.168.1.2</p></div>
+</div>
+<div class="steps" style="margin-top:20px">
+<div class="step"><div class="num">01</div><div><h3>Hubungkan kabel</h3><p>Sambungkan kabel LAN dari port Ethernet Laptop A ke Laptop B.</p></div></div>
+<div class="step"><div class="num">02</div><div><h3>Atur IPv4</h3><p>Atur Laptop A menjadi 192.168.1.1 dan Laptop B menjadi 192.168.1.2. Gunakan subnet mask 255.255.255.0.</p></div></div>
+<div class="step"><div class="num">03</div><div><h3>Uji koneksi</h3><p>Buka Command Prompt lalu jalankan ping 192.168.1.2 dari Laptop A.</p></div></div>
+<div class="step"><div class="num">04</div><div><h3>Pastikan terhubung</h3><p>Jika muncul Reply dari alamat tujuan, kedua laptop berhasil berkomunikasi.</p></div></div>
+</div>
+</div>
+</section>
+
+<section>
+<div class="container">
+<div class="head"><div class="kicker">05 — File Sharing</div><h2>Sharing File Antar Laptop</h2><p>Bagikan folder melalui jaringan LAN setelah kedua laptop berhasil terhubung.</p></div>
+<div class="steps">
+<div class="step"><div class="num">01</div><div><h3>Pilih folder</h3><p>Klik kanan folder yang ingin dibagikan, lalu pilih Properties → Sharing.</p></div></div>
+<div class="step"><div class="num">02</div><div><h3>Aktifkan sharing</h3><p>Pilih Advanced Sharing dan aktifkan Share this folder.</p></div></div>
+<div class="step"><div class="num">03</div><div><h3>Cari dari laptop lain</h3><p>Tekan Windows + R lalu masukkan alamat seperti \\192.168.1.1 untuk mengakses folder yang dibagikan.</p></div></div>
+<div class="step"><div class="num">04</div><div><h3>Transfer file</h3><p>Salin file dari folder sharing sesuai kebutuhan dan pastikan izin akses sudah benar.</p></div></div>
+</div>
+</div>
+</section>
+
+<section id="file">
+<div class="container">
+<div class="head"><div class="kicker">06 — Media Center</div><h2>PPT & Video Praktikum</h2><p>Upload materi sendiri untuk membuat halaman ini menjadi media presentasi tugas.</p></div>
+<div class="uploads">
+<div class="upload"><h3>📑 Upload PPT</h3><p>Pilih file PowerPoint untuk ditampilkan.</p><input id="pptInput" type="file" accept=".ppt,.pptx"><div id="pptPreview" class="preview">Belum ada PPT dipilih.</div></div>
+<div class="upload"><h3>🎥 Video 01</h3><p>Upload video proses merangkai kabel.</p><input id="video1" type="file" accept="video/*"><div id="videoPreview1" class="preview">Belum ada video.</div></div>
+<div class="upload"><h3>🎥 Video 02</h3><p>Upload video koneksi dan sharing file.</p><input id="video2" type="file" accept="video/*"><div id="videoPreview2" class="preview">Belum ada video.</div></div>
+</div>
+<div class="card" style="margin-top:20px;text-align:center">
+<h3>Download PPT</h3>
+<p style="color:var(--muted);margin:8px 0 15px">Setelah memilih PPT, tombol download akan tersedia.</p>
+<a id="downloadPpt" class="btn primary" style="display:none">⬇ Download PPT</a>
+</div>
+</div>
+</section>
+</main>
+
+<footer>
+<div class="container">© 2026 LAN Connect Lab — Hidayat Arbain • D4 Teknologi Informatika Multimedia Digital</div>
+</footer>
+
+<script>
+const pptInput=document.getElementById("pptInput");
+const pptPreview=document.getElementById("pptPreview");
+const downloadPpt=document.getElementById("downloadPpt");
+
+pptInput.addEventListener("change",function(){
+ if(!this.files[0]) return;
+ const file=this.files[0];
+ const url=URL.createObjectURL(file);
+ pptPreview.innerHTML="📑 <b>"+file.name+"</b>";
+ downloadPpt.href=url;
+ downloadPpt.download=file.name;
+ downloadPpt.style.display="inline-block";
+});
+
+function setupVideo(inputId,previewId){
+ const input=document.getElementById(inputId);
+ const preview=document.getElementById(previewId);
+ input.addEventListener("change",function(){
+   if(!this.files[0]) return;
+   const url=URL.createObjectURL(this.files[0]);
+   preview.innerHTML='<video controls src="'+url+'"></video>';
+ });
+}
+setupVideo("video1","videoPreview1");
+setupVideo("video2","videoPreview2");
+</script>
+</body>
+</html>
